@@ -1,4 +1,4 @@
-import { TokenPrice, TokenPositions } from '../types';
+import { TokenPrice, TokenPositions, WalletAddress } from '../types';
 
 export const mockTokenPrices: Record<string, TokenPrice> = {
   RUNE: { symbol: 'RUNE', price: 4.23, change24h: 2.5 },
@@ -39,3 +39,19 @@ export const mockPositions: Record<string, TokenPositions> = {
     merge: { amount: 8500 }
   }
 };
+
+// Mock wallet addresses for testing
+export const mockWalletAddresses: WalletAddress[] = [
+  {
+    id: '1',
+    label: 'rune ledger',
+    address: 'asdf...asdf',
+    network: 'THORCHAIN'
+  },
+  {
+    id: '2',
+    label: 'asd',
+    address: 'ddd...ddd',
+    network: 'THORCHAIN'
+  }
+];
