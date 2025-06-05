@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #111827;
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .crypto-card {
+    @apply bg-gray-800 border border-gray-600 rounded-xl shadow-lg;
+  }
+  
+  .crypto-card-inner {
+    @apply bg-gray-900 border border-gray-700 rounded-lg;
+  }
+  
+  .text-crypto-green {
+    @apply text-emerald-400;
+  }
+  
+  .bg-crypto-green {
+    @apply bg-emerald-500;
+  }
+  
+  .border-crypto-green {
+    @apply border-emerald-500;
+  }
+}
