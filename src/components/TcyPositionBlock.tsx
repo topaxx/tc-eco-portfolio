@@ -10,6 +10,16 @@ export const TcyPositionBlock: React.FC<TcyPositionBlockProps> = ({
   price,
   positions
 }) => {
+  const calculateTotalValue = () => {
+    let total = 0;
+    if (positions.spot) total += positions.spot.value;
+    if (positions.lp) total += positions.lp.value;
+    if (positions.bond) total += positions.bond.value;
+    if (positions.staked) total += positions.staked.value;
+    if (positions.merge) total += positions.merge.amount * price.price;
+    return total;
+  };
+
   const formatCountdown = (date: Date) => {
     const now = new Date();
     const diff = date.getTime() - now.getTime();
@@ -19,20 +29,15 @@ export const TcyPositionBlock: React.FC<TcyPositionBlockProps> = ({
     return `${days > 0 ? days + 'd ' : ''}${hours}h ${minutes}m`;
   };
 
-  // Use the same total value as RUNE (17343.00)
-  const runePortfolioValue = 17343.00;
+  const totalValue = calculateTotalValue();
   
   return (
     <div className="crypto-card p-6 space-y-6">
       {/* Header */}
       <div className="text-center">
         <h2 className="text-crypto-green text-2xl font-bold mb-2">
-          TCY - ${price.price.toFixed(4)}
+          TCY - ${totalValue.toFixed(2)}
         </h2>
-        <div className="crypto-card-inner p-4">
-          <p className="text-gray-400 text-sm">Total Portfolio Value</p>
-          <p className="text-white text-3xl font-bold">${runePortfolioValue.toFixed(2)}</p>
-        </div>
       </div>
 
       {/* Spot Position */}
