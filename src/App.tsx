@@ -21,6 +21,42 @@ function App() {
   );
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
+  // Calculate total portfolio value
+  const calculateTotalValue = () => {
+    let total = 0;
+    
+    Object.entries(mockPositions).forEach(([symbol, tokenPositions]) => {
+      const tokenPrice = mockTokenPrices[symbol]?.price || 0;
+      
+      // Handle spot positions
+      if (tokenPositions.spot) {
+        total += tokenPositions.spot.amount * tokenPrice;
+      }
+      
+      // Handle LP positions
+      if (tokenPositions.lp) {
+        total += tokenPositions.lp.amount * tokenPrice;
+      }
+      
+      // Handle bond positions
+      if (tokenPositions.bond) {
+        total += tokenPositions.bond.amount * tokenPrice;
+      }
+      
+      // Handle staked positions
+      if (tokenPositions.staked) {
+        total += tokenPositions.staked.amount * tokenPrice;
+      }
+      
+      // Handle merge positions (no price calculation for merge)
+      // Merge positions don't contribute to total value as they're pending
+    });
+    
+    return total;
+  };
+
+  const totalPortfolioValue = calculateTotalValue();
+
   const handleSaveProfile = (profile: Profile) => {
     const existingIndex = profiles.findIndex(p => p.id === profile.id);
     if (existingIndex >= 0) {
@@ -46,6 +82,7 @@ function App() {
         prices={mockTokenPrices} 
         currentProfile={currentProfile}
         onProfileClick={openSettingsModal}
+        totalPortfolioValue={totalPortfolioValue}
       />
 
       {/* Header */}
